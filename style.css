@@ -1,0 +1,729 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #0F0F1A;
+    color: white;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 60px;
+    background-color: #2C3E50;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    color: white;
+}
+
+nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav a:hover {
+    color: #D4AF37;
+}
+
+.nav-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    background-color: transparent;
+    border: 1px solid #D4AF37;
+}
+
+.register-btn {
+    background-color: #D4AF37;
+    color: black;
+}
+
+.register-btn:hover {
+    background-color: #FDB931;
+    color: black;
+}
+
+.main-container {
+    display: flex;
+    min-height: calc(100vh - 140px);
+}
+
+.dashboard-sidebar {
+    width: 220px;
+    background-color: #1A1A2E;
+    padding: 30px 15px;
+    border-right: 2px solid #2C3E50;
+}
+
+.dashboard-sidebar h2 {
+    color: #D4AF37;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2C3E50;
+}
+
+.dashboard-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    background-color: #2C3E50;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s;
+}
+
+.dashboard-link:hover {
+    background-color: #D4AF37;
+    color: black;
+    transform: translateX(5px);
+}
+
+.dashboard-icon {
+    font-size: 1.3rem;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.hero {
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+    color: white;
+    background: linear-gradient(rgba(44, 62, 80, 0.3), rgba(0, 0, 0, 0.4)), url("uber.jpg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
+    color: #FDB931;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.book-now-btn {
+    padding: 12px 30px;
+    background-color: #D4AF37;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.book-now-btn:hover {
+    background-color: #FDB931;
+}
+
+.booking-form-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.booking-form-section h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 2rem;
+    color: #D4AF37;
+}
+
+.booking-container {
+    display: flex;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.booking-form-wrapper {
+    flex: 1;
+    min-width: 350px;
+}
+
+.booking-form {
+    background-color: #1A1A2E;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #D4AF37;
+    font-weight: 500;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #2C3E50;
+    background-color: #0F0F1A;
+    color: white;
+    font-size: 1rem;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #D4AF37;
+}
+
+.location-input {
+    display: flex;
+    gap: 8px;
+}
+
+.location-input input {
+    flex: 1;
+}
+
+.gps-btn,
+.map-btn {
+    padding: 0 15px;
+    background-color: #2C3E50;
+    border: 1px solid #D4AF37;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    width: 50px;
+}
+
+.gps-btn:hover,
+.map-btn:hover {
+    background-color: #D4AF37;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.gps-btn:active,
+.map-btn:active {
+    transform: scale(0.95);
+}
+
+.fare-estimate {
+    margin: 15px 0;
+    position: relative;
+}
+
+.fare-tooltip {
+    background: linear-gradient(135deg, #2C3E50, #1A1A2E);
+    padding: 12px 20px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #D4AF37;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.8;
+    }
+}
+
+.fare-label {
+    color: #D4AF37;
+    font-weight: bold;
+}
+
+.fare-amount {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+}
+
+.fare-distance {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #D4AF37;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #FDB931;
+}
+
+.booking-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #4CAF50;
+    margin-top: 10px;
+}
+
+.booking-note::before {
+    content: "✓ ";
+    font-weight: bold;
+}
+
+.map-preview {
+    flex: 1;
+    min-width: 350px;
+}
+
+.gps-map {
+    background: linear-gradient(145deg, #0A0A1A, #1A1A2E);
+    border-radius: 15px;
+    padding: 20px;
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    border: 2px solid #2C3E50;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.satellite-line {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    animation: scan 3s linear infinite;
+    opacity: 0.3;
+}
+
+.line-1 {
+    top: 30%;
+    width: 100%;
+    left: -100%;
+    animation: scan 4s linear infinite;
+}
+
+.line-2 {
+    top: 60%;
+    width: 100%;
+    left: -100%;
+    animation: scan 5s linear infinite;
+    animation-delay: 1s;
+}
+
+.line-3 {
+    top: 90%;
+    width: 100%;
+    left: -100%;
+    animation: scan 4.5s linear infinite;
+    animation-delay: 2s;
+}
+
+@keyframes scan {
+    0% {
+        left: -100%;
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        left: 100%;
+        opacity: 0;
+    }
+}
+
+.map-grid {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.grid-row {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+
+.grid-cell {
+    flex: 1;
+    background-color: rgba(44, 62, 80, 0.3);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.grid-cell:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+    border-color: #D4AF37;
+}
+
+.gps-pulse {
+    width: 20px;
+    height: 20px;
+    background-color: #D4AF37;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: gps-pulse 2s infinite;
+    box-shadow: 0 0 20px #D4AF37;
+}
+
+@keyframes gps-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(212, 175, 55, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+    }
+}
+
+.destination-marker {
+    font-size: 1.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translate(-50%, -50%);
+    }
+    50% {
+        transform: translate(-50%, -60%);
+    }
+}
+
+.gps-coordinates {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #D4AF37;
+    z-index: 3;
+    display: flex;
+    gap: 10px;
+}
+
+.signal-strong {
+    color: #4CAF50;
+}
+
+.location-marker {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.location-marker.pickup {
+    top: 40%;
+    left: 30%;
+}
+
+.location-marker.dropoff {
+    bottom: 30%;
+    right: 25%;
+}
+
+.marker-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: marker-pulse 1.5s infinite;
+}
+
+.pickup .marker-dot {
+    background-color: #4CAF50;
+    box-shadow: 0 0 15px #4CAF50;
+}
+
+.dropoff .marker-dot {
+    background-color: #f44336;
+    box-shadow: 0 0 15px #f44336;
+}
+
+.marker-label {
+    font-size: 0.75rem;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 2px 6px;
+    border-radius: 10px;
+    color: white;
+}
+
+@keyframes marker-pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.route-line {
+    position: absolute;
+    top: 45%;
+    left: 35%;
+    width: 40%;
+    height: 2px;
+    background: linear-gradient(90deg, #4CAF50, #f44336);
+    transform: rotate(45deg);
+    transform-origin: left;
+    z-index: 2;
+    opacity: 0.6;
+    animation: route-pulse 2s infinite;
+}
+
+@keyframes route-pulse {
+    0% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0.3;
+    }
+}
+
+.quick-locations {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.quick-loc {
+    background-color: #2C3E50;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+}
+
+.quick-loc:hover {
+    background-color: #D4AF37;
+    color: black;
+    transform: scale(1.05);
+    border-color: white;
+}
+
+.quick-loc:active {
+    transform: scale(0.95);
+}
+
+footer {
+    background-color: #2C3E50;
+    padding: 30px 60px 15px;
+    margin-top: 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-section h3,
+.footer-section h4 {
+    color: #D4AF37;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.footer-section p {
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.footer-section a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: #D4AF37;
+}
+
+.features-list {
+    list-style: none;
+}
+
+.features-list li {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.features-list li:hover {
+    color: #D4AF37;
+    transform: translateX(5px);
+    transition: all 0.3s;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid #1A1A2E;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 968px) {
+    .booking-container {
+        flex-direction: column;
+    }
+    .gps-map {
+        height: 250px;
+    }
+    .gps-coordinates {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    nav a {
+        margin-left: 0;
+    }
+    .main-container {
+        flex-direction: column;
+    }
+    .dashboard-sidebar {
+        width: 100%;
+        padding: 20px;
+        border-right: none;
+        border-bottom: 2px solid #2C3E50;
+    }
+    .dashboard-link {
+        display: inline-flex;
+        width: calc(33.33% - 10px);
+        margin-right: 10px;
+    }
+    .hero {
+        padding-left: 20px;
+        height: 40vh;
+    }
+    .hero h1 {
+        font-size: 32px;
+    }
+    .booking-form-wrapper,
+    .map-preview {
+        min-width: 100%;
+    }
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    footer {
+        padding: 30px 20px 15px;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

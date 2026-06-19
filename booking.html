@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden-Spark | Book a Ride</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="logo.jpeg" alt="GoldenSpark SmartRide Logo" class="logo">
+            <h1>Golden-Spark SmartRide</h1>
+        </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html" class="nav-btn" id="navBtn">Login</a>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <main class="main-content" style="width: 100%; max-width: 1200px; margin: 0 auto; padding: 20px;">
+
+            <section class="booking-form-section">
+                <h2>Book Your Ride</h2>
+                <div class="booking-container">
+                    <div class="booking-form-wrapper">
+                        <form class="booking-form" id="bookingForm">
+                            <div class="form-group">
+                                <label for="pickup">Pickup Location</label>
+                                <div class="location-input">
+                                    <input type="text" id="pickup" placeholder="Enter pickup address" required>
+                                    <button type="button" class="gps-btn" title="Use my current location" onclick="useMyLocation()">📍</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="dropoff">Dropoff Location</label>
+                                <div class="location-input">
+                                    <input type="text" id="dropoff" placeholder="Enter destination" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="date">Date</label>
+                                    <input type="date" id="date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time">Time</label>
+                                    <input type="time" id="time" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="vehicle">Vehicle Type</label>
+                                <select id="vehicle" onchange="updateFare()">
+                                    <option value="Economy">Economy - $1.50/mile</option>
+                                    <option value="Premium">Premium - $2.50/mile</option>
+                                    <option value="Luxury">Luxury - $4.00/mile</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="passengers">Number of Passengers</label>
+                                <select id="passengers">
+                                    <option value="1">1 Passenger</option>
+                                    <option value="2">2 Passengers</option>
+                                    <option value="3">3 Passengers</option>
+                                    <option value="4">4 Passengers</option>
+                                </select>
+                            </div>
+
+                            <div class="fare-estimate">
+                                <div class="fare-tooltip">
+                                    <span class="fare-label">Estimated Fare</span>
+                                    <span class="fare-amount" id="fareAmount">$0.00</span>
+                                    <span class="fare-distance" id="fareDistance">0 miles</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="submit-btn" id="submitBtn">Confirm Booking</button>
+                            <p class="booking-note" id="bookingNote">✓ Login required to book a ride</p>
+                        </form>
+                    </div>
+
+                    <div class="map-preview">
+                        <div class="gps-map">
+                            <div class="satellite-line line-1"></div>
+                            <div class="satellite-line line-2"></div>
+                            <div class="satellite-line line-3"></div>
+
+                            <div class="map-grid">
+                                <div class="grid-row">
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell">
+                                        <div class="gps-pulse" id="pickupMarker"></div>
+                                    </div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                </div>
+                                <div class="grid-row">
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell"></div>
+                                    <div class="grid-cell">
+                                        <div class="destination-marker">🏁</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="gps-coordinates">
+                                <span class="coord" id="coordLat">6.5244° N</span>
+                                <span class="coord" id="coordLng">3.3792° E</span>
+                                <span class="coord">GPS: <span class="signal-strong">●●●●</span></span>
+                            </div>
+
+                            <div class="location-marker pickup" id="pickupPos">
+                                <span class="marker-dot"></span>
+                                <span class="marker-label">Pickup</span>
+                            </div>
+                            <div class="location-marker dropoff" id="dropoffPos">
+                                <span class="marker-dot"></span>
+                                <span class="marker-label">Dropoff</span>
+                            </div>
+
+                            <div class="route-line" id="routeLine"></div>
+                        </div>
+
+                        <div class="quick-locations">
+                            <span class="quick-loc" onclick="setQuickLocation('pickup', '123 Main Street, Lagos')">🏠 Home</span>
+                            <span class="quick-loc" onclick="setQuickLocation('pickup', '456 Oxford Street, Ikoyi')">💼 Work</span>
+                            <span class="quick-loc" onclick="setQuickLocation('pickup', 'Murtala Muhammed Airport')">✈️ Airport</span>
+                            <span class="quick-loc" onclick="setQuickLocation('pickup', 'Shoprite Ikeja')">🛒 Mall</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Golden-Spark SmartRide</h3>
+                <p>Your trusted ride-sharing partner</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="login.html">Login</a>
+                <a href="register.html">Register</a>
+                <a href="index.html">Home</a>
+            </div>
+        </div>
+        <p class="copyright">© 2026 Golden-Spark SmartRide. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Check login status
+        const currentUser = getCurrentUser();
+        const submitBtn = document.getElementById('submitBtn');
+        const bookingNote = document.getElementById('bookingNote');
+        const navBtn = document.getElementById('navBtn');
+
+        if (currentUser) {
+            navBtn.textContent = 'Logout';
+            navBtn.href = '#';
+            navBtn.onclick = function(e) {
+                e.preventDefault();
+                logout();
+            };
+            
+            if (currentUser.role === 'Passenger') {
+                submitBtn.disabled = false;
+                bookingNote.textContent = '✓ Booking will be sent to nearby drivers';
+                bookingNote.style.color = '#4CAF50';
+            } else {
+                submitBtn.disabled = true;
+                bookingNote.textContent = '⚠ Only passengers can book rides';
+                bookingNote.style.color = '#FFC107';
+            }
+        } else {
+            submitBtn.disabled = true;
+        }
+
+        // Set default date and time
+        document.getElementById('date').valueAsDate = new Date();
+        const now = new Date();
+        document.getElementById('time').value = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+
+        // Ride settings
+        const rideSettings = JSON.parse(localStorage.getItem('rideSettings') || '{}');
+        const rates = {
+            Economy: rideSettings.economyRate || 1.50,
+            Premium: rideSettings.premiumRate || 2.50,
+            Luxury: rideSettings.luxuryRate || 4.00
+        };
+        const baseFare = rideSettings.baseFare || 3.00;
+
+        // Calculate fare
+        function updateFare() {
+            const vehicle = document.getElementById('vehicle').value;
+            const pickup = document.getElementById('pickup').value;
+            const dropoff = document.getElementById('dropoff').value;
+
+            if (!pickup || !dropoff) {
+                document.getElementById('fareAmount').textContent = '$0.00';
+                document.getElementById('fareDistance').textContent = '0 miles';
+                return;
+            }
+
+            const randomDistance = (Math.random() * 12 + 1).toFixed(1);
+            const fare = (baseFare + (randomDistance * rates[vehicle])).toFixed(2);
+
+            document.getElementById('fareAmount').textContent = '$' + fare;
+            document.getElementById('fareDistance').textContent = randomDistance + ' miles';
+        }
+
+        // Set quick location
+        function setQuickLocation(fieldId, location) {
+            document.getElementById(fieldId).value = location;
+            updateFare();
+        }
+
+        // Use my location
+        function useMyLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const lat = position.coords.latitude.toFixed(4);
+                        const lng = position.coords.longitude.toFixed(4);
+                        document.getElementById('pickup').value = 'Current Location (' + lat + ', ' + lng + ')';
+                        document.getElementById('coordLat').textContent = lat + '° N';
+                        document.getElementById('coordLng').textContent = lng + '° E';
+                        updateFare();
+                    },
+                    function(error) {
+                        alert('Unable to get your location. Please enter it manually.');
+                    }
+                );
+            } else {
+                alert('Geolocation is not supported by your browser.');
+            }
+        }
+
+        // Input listeners
+        document.getElementById('pickup').addEventListener('input', updateFare);
+        document.getElementById('dropoff').addEventListener('input', updateFare);
+
+        // Form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (!currentUser) {
+                showMessage('Please login to book a ride!', 'error');
+                return;
+            }
+
+            if (currentUser.role !== 'Passenger') {
+                showMessage('Only passengers can book rides!', 'error');
+                return;
+            }
+
+            const pickup = document.getElementById('pickup').value;
+            const dropoff = document.getElementById('dropoff').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const vehicleType = document.getElementById('vehicle').value;
+            const passengerCount = document.getElementById('passengers').value;
+            const fareText = document.getElementById('fareAmount').textContent;
+            const distanceText = document.getElementById('fareDistance').textContent;
+
+            if (!pickup || !dropoff || !date || !time) {
+                showMessage('Please fill in all fields!', 'error');
+                return;
+            }
+
+            if (fareText === '$0.00') {
+                showMessage('Please enter valid locations to calculate fare!', 'error');
+                return;
+            }
+
+            const fare = parseFloat(fareText.replace('$', ''));
+            const distance = parseFloat(distanceText.replace(' miles', ''));
+
+            // Generate random coordinates for demo (Lagos area)
+            const pickupLat = 6.4 + (Math.random() * 0.2);
+            const pickupLng = 3.3 + (Math.random() * 0.2);
+            const dropoffLat = 6.4 + (Math.random() * 0.2);
+            const dropoffLng = 3.3 + (Math.random() * 0.2);
+
+            const bookingData = {
+                pickup,
+                dropoff,
+                pickupLat,
+                pickupLng,
+                dropoffLat,
+                dropoffLng,
+                date,
+                time,
+                vehicleType,
+                passengerCount,
+                fare,
+                distance
+            };
+
+            const newBooking = createBooking(bookingData);
+
+            if (newBooking) {
+                showMessage('Booking confirmed! ID: ' + newBooking.id, 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'passenger-dashboard.html';
+                }, 2000);
+            } else {
+                showMessage('Failed to create booking. Please try again.', 'error');
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden-Spark | Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+
+<body>
+
+    <header class="admin-header">
+        <div class="header-left">
+            <img src="logo.jpeg" alt="Logo" class="logo">
+            <h1>Golden-Spark <span class="gold-text">Admin</span></h1>
+        </div>
+        <nav>
+            <span id="adminName" style="color: #D4AF37; margin-right: 20px;"></span>
+            <a href="index.html">Live Site</a>
+            <a href="login.html" class="logout-btn" onclick="logout()">Logout</a>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-title">Management</div>
+            <a href="#" class="dashboard-link active" onclick="showSection('overview')">
+                <span class="icon">📊</span> Overview
+            </a>
+            <a href="#" class="dashboard-link" onclick="showSection('drivers')">
+                <span class="icon">🚗</span> Drivers
+            </a>
+            <a href="#" class="dashboard-link" onclick="showSection('passengers')">
+                <span class="icon">👥</span> Passengers
+            </a>
+            <a href="#" class="dashboard-link" onclick="showSection('bookings')">
+                <span class="icon">📋</span> Bookings
+            </a>
+            <a href="#" class="dashboard-link" onclick="showSection('revenue')">
+                <span class="icon">💰</span> Revenue
+            </a>
+            <a href="#" class="dashboard-link" onclick="showSection('security')">
+                <span class="icon">🛡️</span> Security
+            </a>
+            <a href="#" class="dashboard-link" onclick="showSection('settings')">
+                <span class="icon">⚙️</span> Settings
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <section class="admin-hero">
+                <h1>Control Panel</h1>
+                <p>System Status: <span class="status-online">● Online</span></p>
+            </section>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Total Revenue</span>
+                    <span class="stat-value" id="totalRevenue">$0.00</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Active Rides</span>
+                    <span class="stat-value" id="activeRides">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Total Users</span>
+                    <span class="stat-value" id="totalUsers">0</span>
+                </div>
+            </div>
+
+            <!-- Overview Section -->
+            <div id="overviewSection" class="data-table-container">
+                <h3>System Overview</h3>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px;">
+                    <div style="background: linear-gradient(135deg, #4CAF50, #2E7D32); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">Drivers</p>
+                        <h2 id="totalDrivers" style="color: white; margin-top: 10px;">0</h2>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #2196F3, #1565C0); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">Passengers</p>
+                        <h2 id="totalPassengers" style="color: white; margin-top: 10px;">0</h2>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #D4AF37, #B8860B); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">Completed Rides</p>
+                        <h2 id="completedRides" style="color: white; margin-top: 10px;">0</h2>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #f44336, #c62828); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">Cancelled Rides</p>
+                        <h2 id="cancelledRides" style="color: white; margin-top: 10px;">0</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drivers Section -->
+            <div id="driversSection" class="data-table-container" style="display: none;">
+                <h3>Driver Management</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Driver Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Vehicle</th>
+                            <th>Plate</th>
+                            <th>Rating</th>
+                            <th>Total Rides</th>
+                            <th>Earnings</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="driversTableBody">
+                        <tr>
+                            <td colspan="10" style="text-align: center; color: #ccc; padding: 20px;">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Passengers Section -->
+            <div id="passengersSection" class="data-table-container" style="display: none;">
+                <h3>Passenger Management</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Wallet</th>
+                            <th>Loyalty Points</th>
+                            <th>Total Trips</th>
+                            <th>Joined</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="passengersTableBody">
+                        <tr>
+                            <td colspan="9" style="text-align: center; color: #ccc; padding: 20px;">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bookings Section -->
+            <div id="bookingsSection" class="data-table-container" style="display: none;">
+                <h3>All Bookings</h3>
+                <div style="margin-bottom: 15px;">
+                    <select id="bookingFilter" onchange="filterBookings()" style="padding: 10px; background: #0F0F1A; border: 1px solid #2C3E50; border-radius: 8px; color: white;">
+                        <option value="all">All Bookings</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="InProgress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Date</th>
+                            <th>Passenger</th>
+                            <th>Driver</th>
+                            <th>Pickup</th>
+                            <th>Dropoff</th>
+                            <th>Vehicle</th>
+                            <th>Fare</th>
+                            <th>Status</th>
+                            <th>Payment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTableBody">
+                        <tr>
+                            <td colspan="10" style="text-align: center; color: #ccc; padding: 20px;">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Revenue Section -->
+            <div id="revenueSection" class="data-table-container" style="display: none;">
+                <h3>Revenue Reports</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px;">
+                    <div style="background: linear-gradient(135deg, #4CAF50, #2E7D32); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">Today's Revenue</p>
+                        <h2 id="todayRevenue" style="color: white; margin-top: 10px;">$0.00</h2>
+                        <p id="todayRides" style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-top: 5px;">0 rides</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #2196F3, #1565C0); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">This Week</p>
+                        <h2 id="weekRevenue" style="color: white; margin-top: 10px;">$0.00</h2>
+                        <p id="weekRides" style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-top: 5px;">0 rides</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #9C27B0, #7B1FA2); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">This Month</p>
+                        <h2 id="monthRevenue" style="color: white; margin-top: 10px;">$0.00</h2>
+                        <p id="monthRides" style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-top: 5px;">0 rides</p>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #D4AF37, #B8860B); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">This Year</p>
+                        <h2 id="yearRevenue" style="color: white; margin-top: 10px;">$0.00</h2>
+                        <p id="yearRides" style="color: rgba(255,255,255,0.7); font-size: 0.8rem; margin-top: 5px;">0 rides</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h4 style="color: #D4AF37; margin-bottom: 15px;">Monthly Revenue Breakdown</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Revenue</th>
+                                <th>Rides</th>
+                                <th>Avg Fare</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monthlyRevenueBody">
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: #ccc; padding: 20px;">No data available</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button onclick="exportRevenueReport()" style="padding: 12px 24px; background: #D4AF37; border: none; border-radius: 8px; color: black; cursor: pointer; font-weight: bold;">📥 Export Report</button>
+                </div>
+            </div>
+
+            <!-- Security Section -->
+            <div id="securitySection" class="data-table-container" style="display: none;">
+                <h3>Security Center</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
+                    <div style="background: linear-gradient(135deg, #f44336, #c62828); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">Failed Logins (24h)</p>
+                        <h2 id="failedLogins" style="color: white; margin-top: 10px;">0</h2>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #FFC107, #FFA000); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">Active Sessions</p>
+                        <h2 id="activeSessions" style="color: white; margin-top: 10px;">0</h2>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #4CAF50, #2E7D32); padding: 20px; border-radius: 12px; text-align: center;">
+                        <p style="color: white; font-size: 0.9rem;">Security Score</p>
+                        <h2 id="securityScore" style="color: white; margin-top: 10px;">95%</h2>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <h4 style="color: #D4AF37; margin-bottom: 15px;">Activity Logs</h4>
+                    <div style="max-height: 400px; overflow-y: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Type</th>
+                                    <th>User ID</th>
+                                    <th>Message</th>
+                                    <th>IP Address</th>
+                                </tr>
+                            </thead>
+                            <tbody id="securityLogsBody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: #ccc; padding: 20px;">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button onclick="clearOldLogs()" style="padding: 12px 24px; background: #f44336; border: none; border-radius: 8px; color: white; cursor: pointer; font-weight: bold;">🗑️ Clear Logs (30+ days)</button>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settingsSection" class="data-table-container" style="display: none;">
+                <h3>System Settings</h3>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px;">
+                    <div>
+                        <label style="color: #D4AF37;">Economy Rate ($/mile)</label>
+                        <input type="number" id="economyRate" value="1.50" step="0.10" style="width: 100%; padding: 10px; margin-top: 5px; background: #0F0F1A; border: 1px solid #2C3E50; border-radius: 8px; color: white;">
+                    </div>
+                    <div>
+                        <label style="color: #D4AF37;">Premium Rate ($/mile)</label>
+                        <input type="number" id="premiumRate" value="2.50" step="0.10" style="width: 100%; padding: 10px; margin-top: 5px; background: #0F0F1A; border: 1px solid #2C3E50; border-radius: 8px; color: white;">
+                    </div>
+                    <div>
+                        <label style="color: #D4AF37;">Luxury Rate ($/mile)</label>
+                        <input type="number" id="luxuryRate" value="4.00" step="0.10" style="width: 100%; padding: 10px; margin-top: 5px; background: #0F0F1A; border: 1px solid #2C3E50; border-radius: 8px; color: white;">
+                    </div>
+                    <div>
+                        <label style="color: #D4AF37;">Base Fare ($)</label>
+                        <input type="number" id="baseFare" value="3.00" step="0.50" style="width: 100%; padding: 10px; margin-top: 5px; background: #0F0F1A; border: 1px solid #2C3E50; border-radius: 8px; color: white;">
+                    </div>
+                    <div>
+                        <label style="color: #D4AF37;">Minimum Fare ($)</label>
+                        <input type="number" id="minFare" value="5.00" step="0.50" style="width: 100%; padding: 10px; margin-top: 5px; background: #0F0F1A; border: 1px solid #2C3E50; border-radius: 8px; color: white;">
+                    </div>
+                    <div>
+                        <label style="color: #D4AF37;">Surge Multiplier</label>
+                        <input type="number" id="surgeMultiplier" value="1.0" step="0.1" min="1" max="5" style="width: 100%; padding: 10px; margin-top: 5px; background: #0F0F1A; border: 1px solid #2C3E50; border-radius: 8px; color: white;">
+                    </div>
+                </div>
+                <button onclick="saveSettings()" style="margin-top: 20px; padding: 12px 30px; background: #D4AF37; border: none; border-radius: 8px; color: black; cursor: pointer; font-weight: bold;">Save Settings</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        let currentUser = getCurrentUser();
+
+        if (!currentUser || currentUser.role !== 'Admin') {
+            window.location.href = 'login.html';
+        }
+
+        function loadDashboard() {
+            const stats = getStats();
+            
+            document.getElementById('adminName').textContent = currentUser.firstName + ' ' + currentUser.lastName;
+            document.getElementById('totalRevenue').textContent = formatCurrency(stats.totalRevenue);
+            document.getElementById('activeRides').textContent = stats.activeRides;
+            document.getElementById('totalUsers').textContent = stats.totalUsers;
+            document.getElementById('totalDrivers').textContent = stats.totalDrivers;
+            document.getElementById('totalPassengers').textContent = stats.totalPassengers;
+            document.getElementById('completedRides').textContent = stats.completedRides;
+            document.getElementById('cancelledRides').textContent = stats.cancelledRides;
+
+            loadDrivers();
+            loadPassengers();
+            loadBookings();
+            loadRevenue();
+            loadSecurityLogs();
+            loadSettings();
+        }
+
+        function loadDrivers() {
+            const drivers = getDrivers();
+            const users = getUsers();
+            const tbody = document.getElementById('driversTableBody');
+
+            if (drivers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: #ccc; padding: 20px;">No drivers registered</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = drivers.map(driver => {
+                const user = users.find(u => u.id === driver.userId);
+                return `
+                    <tr>
+                        <td>${user ? user.firstName + ' ' + user.lastName : 'Unknown'}</td>
+                        <td>${user ? user.email : 'N/A'}</td>
+                        <td>${user ? user.phone : 'N/A'}</td>
+                        <td>${driver.vehicleModel}</td>
+                        <td>${driver.plateNumber}</td>
+                        <td>⭐ ${(driver.rating || 0).toFixed(2)}</td>
+                        <td>${driver.totalRides || 0}</td>
+                        <td>${formatCurrency(driver.totalEarnings || 0)}</td>
+                        <td><span style="color: ${driver.isOnline ? '#4CAF50' : '#f44336'};">${driver.isOnline ? 'Online' : 'Offline'}</span></td>
+                        <td><button class="action-btn" onclick="viewDriver(${driver.id})">View</button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function loadPassengers() {
+            const passengers = getPassengers();
+            const users = getUsers();
+            const bookings = getBookings();
+            const tbody = document.getElementById('passengersTableBody');
+
+            if (passengers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; color: #ccc; padding: 20px;">No passengers registered</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = passengers.map(passenger => {
+                const user = users.find(u => u.id === passenger.userId);
+                const tripCount = bookings.filter(b => b.passengerUserId === passenger.userId).length;
+                return `
+                    <tr>
+                        <td>${user ? user.firstName + ' ' + user.lastName : 'Unknown'}</td>
+                        <td>${user ? user.email : 'N/A'}</td>
+                        <td>${user ? user.phone : 'N/A'}</td>
+                        <td>${formatCurrency(passenger.walletBalance || 0)}</td>
+                        <td>${passenger.loyaltyPoints || 0}</td>
+                        <td>${tripCount}</td>
+                        <td>${user ? formatDate(user.createdAt) : 'N/A'}</td>
+                        <td><span style="color: ${user && user.isActive ? '#4CAF50' : '#f44336'};">${user && user.isActive ? 'Active' : 'Inactive'}</span></td>
+                        <td><button class="action-btn" onclick="viewPassenger(${passenger.id})">View</button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function loadBookings(filter = 'all') {
+            let bookings = getBookings();
+            if (filter !== 'all') {
+                bookings = bookings.filter(b => b.status === filter);
+            }
+            const tbody = document.getElementById('bookingsTableBody');
+
+            if (bookings.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; color: #ccc; padding: 20px;">No bookings found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = bookings.map(booking => `
+                <tr>
+                    <td>${booking.id}</td>
+                    <td>${formatDate(booking.date)}</td>
+                    <td>${booking.passengerName}</td>
+                    <td>${booking.driverName || 'Unassigned'}</td>
+                    <td>${booking.pickup}</td>
+                    <td>${booking.dropoff}</td>
+                    <td>${booking.vehicleType}</td>
+                    <td>${formatCurrency(booking.fare)}</td>
+                    <td><span style="color: ${getStatusColor(booking.status)};">${booking.status}</span></td>
+                    <td><span style="color: ${booking.paymentStatus === 'Paid' ? '#4CAF50' : '#FFC107'};">${booking.paymentStatus}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        function filterBookings() {
+            const filter = document.getElementById('bookingFilter').value;
+            loadBookings(filter);
+        }
+
+        function loadRevenue() {
+            const today = getRevenueByPeriod('today');
+            const week = getRevenueByPeriod('week');
+            const month = getRevenueByPeriod('month');
+            const year = getRevenueByPeriod('year');
+
+            document.getElementById('todayRevenue').textContent = formatCurrency(today.revenue);
+            document.getElementById('todayRides').textContent = today.count + ' rides';
+            document.getElementById('weekRevenue').textContent = formatCurrency(week.revenue);
+            document.getElementById('weekRides').textContent = week.count + ' rides';
+            document.getElementById('monthRevenue').textContent = formatCurrency(month.revenue);
+            document.getElementById('monthRides').textContent = month.count + ' rides';
+            document.getElementById('yearRevenue').textContent = formatCurrency(year.revenue);
+            document.getElementById('yearRides').textContent = year.count + ' rides';
+
+            // Monthly breakdown
+            const bookings = getBookings().filter(b => b.status === 'Completed');
+            const monthlyData = {};
+            
+            bookings.forEach(b => {
+                const date = new Date(b.date);
+                const monthKey = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+                if (!monthlyData[monthKey]) {
+                    monthlyData[monthKey] = { revenue: 0, count: 0 };
+                }
+                monthlyData[monthKey].revenue += b.fare;
+                monthlyData[monthKey].count++;
+            });
+
+            const tbody = document.getElementById('monthlyRevenueBody');
+            const months = Object.entries(monthlyData).sort((a, b) => b[0].localeCompare(a[0]));
+
+            if (months.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #ccc; padding: 20px;">No revenue data</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = months.map(([month, data]) => `
+                <tr>
+                    <td>${month}</td>
+                    <td style="color: #4CAF50; font-weight: bold;">${formatCurrency(data.revenue)}</td>
+                    <td>${data.count}</td>
+                    <td>${formatCurrency(data.revenue / data.count)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function exportRevenueReport() {
+            const today = getRevenueByPeriod('today');
+            const week = getRevenueByPeriod('week');
+            const month = getRevenueByPeriod('month');
+            const year = getRevenueByPeriod('year');
+
+            const report = `
+Golden-Spark SmartRide - Revenue Report
+========================================
+Generated: ${new Date().toLocaleString()}
+
+SUMMARY
+-------
+Today's Revenue: ${formatCurrency(today.revenue)} (${today.count} rides)
+Weekly Revenue: ${formatCurrency(week.revenue)} (${week.count} rides)
+Monthly Revenue: ${formatCurrency(month.revenue)} (${month.count} rides)
+Yearly Revenue: ${formatCurrency(year.revenue)} (${year.count} rides)
+            `;
+
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'revenue-report-' + new Date().toISOString().split('T')[0] + '.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function loadSecurityLogs() {
+            const logs = getSecurityLogs();
+            const tbody = document.getElementById('securityLogsBody');
+
+            // Security stats
+            const failedLogins = logs.filter(l => l.type === 'login_failed').length;
+            const activeSessions = new Set(logs.filter(l => l.type === 'login').map(l => l.userId)).size;
+            
+            document.getElementById('failedLogins').textContent = failedLogins;
+            document.getElementById('activeSessions').textContent = activeSessions;
+            document.getElementById('securityScore').textContent = failedLogins > 10 ? '75%' : failedLogins > 5 ? '85%' : '95%';
+
+            if (logs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #ccc; padding: 20px;">No security logs</td></tr>';
+                return;
+            }
+
+            const recentLogs = logs.slice(-50).reverse();
+            tbody.innerHTML = recentLogs.map(log => `
+                <tr>
+                    <td>${formatDateTime(log.timestamp)}</td>
+                    <td><span style="color: ${getLogTypeColor(log.type)};">${log.type.toUpperCase()}</span></td>
+                    <td>${log.userId}</td>
+                    <td>${log.message}</td>
+                    <td>${log.ip}</td>
+                </tr>
+            `).join('');
+        }
+
+        function getLogTypeColor(type) {
+            const colors = {
+                'login': '#4CAF50',
+                'login_failed': '#f44336',
+                'logout': '#FFC107',
+                'booking': '#2196F3',
+                'ride_accepted': '#9C27B0',
+                'ride_completed': '#4CAF50',
+                'registration': '#2196F3'
+            };
+            return colors[type] || '#ccc';
+        }
+
+        function clearOldLogs() {
+            if (confirm('Clear logs older than 30 days?')) {
+                const logs = getSecurityLogs();
+                const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+                const filteredLogs = logs.filter(l => new Date(l.timestamp) > thirtyDaysAgo);
+                localStorage.setItem('securityLogs', JSON.stringify(filteredLogs));
+                loadSecurityLogs();
+                showMessage('Old logs cleared', 'success');
+            }
+        }
+
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('rideSettings') || '{}');
+            document.getElementById('economyRate').value = settings.economyRate || 1.50;
+            document.getElementById('premiumRate').value = settings.premiumRate || 2.50;
+            document.getElementById('luxuryRate').value = settings.luxuryRate || 4.00;
+            document.getElementById('baseFare').value = settings.baseFare || 3.00;
+            document.getElementById('minFare').value = settings.minFare || 5.00;
+            document.getElementById('surgeMultiplier').value = settings.surgeMultiplier || 1.0;
+        }
+
+        function saveSettings() {
+            const settings = {
+                economyRate: parseFloat(document.getElementById('economyRate').value),
+                premiumRate: parseFloat(document.getElementById('premiumRate').value),
+                luxuryRate: parseFloat(document.getElementById('luxuryRate').value),
+                baseFare: parseFloat(document.getElementById('baseFare').value),
+                minFare: parseFloat(document.getElementById('minFare').value),
+                surgeMultiplier: parseFloat(document.getElementById('surgeMultiplier').value)
+            };
+            localStorage.setItem('rideSettings', JSON.stringify(settings));
+            showMessage('Settings saved successfully!', 'success');
+        }
+
+        function viewDriver(driverId) {
+            const driver = getDrivers().find(d => d.id === driverId);
+            const user = getUsers().find(u => u.id === driver.userId);
+            alert(`Driver: ${user.firstName} ${user.lastName}\nEmail: ${user.email}\nPhone: ${user.phone}\nVehicle: ${driver.vehicleModel}\nPlate: ${driver.plateNumber}\nRating: ⭐ ${(driver.rating || 0).toFixed(2)}\nTotal Rides: ${driver.totalRides || 0}\nEarnings: ${formatCurrency(driver.totalEarnings || 0)}\nStatus: ${driver.isOnline ? 'Online' : 'Offline'}`);
+        }
+
+        function viewPassenger(passengerId) {
+            const passenger = getPassengers().find(p => p.id === passengerId);
+            const user = getUsers().find(u => u.id === passenger.userId);
+            const tripCount = getBookings().filter(b => b.passengerUserId === passenger.userId).length;
+            alert(`Passenger: ${user.firstName} ${user.lastName}\nEmail: ${user.email}\nPhone: ${user.phone}\nWallet: ${formatCurrency(passenger.walletBalance || 0)}\nLoyalty Points: ${passenger.loyaltyPoints || 0}\nTotal Trips: ${tripCount}\nJoined: ${formatDate(user.createdAt)}`);
+        }
+
+        function showSection(section) {
+            const sections = ['overview', 'drivers', 'passengers', 'bookings', 'revenue', 'security', 'settings'];
+            sections.forEach(s => {
+                document.getElementById(s + 'Section').style.display = 'none';
+            });
+            document.getElementById(section + 'Section').style.display = 'block';
+            
+            document.querySelectorAll('.dashboard-link').forEach(link => link.classList.remove('active'));
+            if (event && event.target) {
+                event.target.closest('.dashboard-link').classList.add('active');
+            }
+        }
+
+        function getStatusColor(status) {
+            const colors = {
+                'Pending': '#FFC107',
+                'Accepted': '#2196F3',
+                'InProgress': '#9C27B0',
+                'Completed': '#4CAF50',
+                'Cancelled': '#f44336'
+            };
+            return colors[status] || '#ccc';
+        }
+
+        // Initialize
+        loadDashboard();
+    </script>
+
+</body>
+
+</html>
